@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+   /* solution1 
+    let n= prompt('number');
+    function prime(n){
+        let primes=[]
+        for (let i=2; i<=n; i++) {
+            let isPrime = true;
+            for (let j=0; j<primes.length; j++) {
+                if (i%primes[j]===0){
+                    isPrime = false;
+                    break;
+                }
+            }
+            if(isPrime===true){
+                primes.push(i)
+                alert(i)
+            }
+        }
+    }
+    prime(n);
+    */
+    //solution2
+      let n= prompt('number');
+      function prime(n) {
+        let primes=[]
+        for (let i = 2; i <= n; i++) {
+          let isPrime = true;
+          for (let j = 2; j < i/2; j++) {
+            if (i % j === 0) {
+              isPrime = false;
+              break;
+            }
+          }
+          if (isPrime === true) {
+           primes.push(i)
+          }
+        }
+        alert(primes.join(' '))
+     }
+     prime(n)
+     
+
+/* nivedita's solution 
+const number = prompt("Enter number upto which you would like to fetch primes");
+const primes = [];
+for (i = 2; i < number; i++) {
+    let prime = true;
+    for (j = 2; j < i; j++) {
+        if (i % j === 0) {
+            prime = false;
+            break;
+        }
+    }
+    if (prime === true) {
+        primes.push(i);
+    }
+}
+// if primes is empty handle
+alert(primes);
+*/       
+    </script>
+  </body>
+</html>
+
+
+
+
