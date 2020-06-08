@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+    <script>
+    //Manipulate property value exercise
+    
+    let navigation = {
+        width: 200,
+        height:300,
+        title: "My navigation"
+    };
+    
+    function multiplyNumber(obj) {
+        for (let key in obj) {
+            if (typeof obj[key] === "number") {
+                obj[key] *= 2
+            }
+
+        }   
+    }
+
+    multiplyNumber(navigation)
+    console.log(navigation)
+
+     
+    </script>
+</head>
