@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--HTML DOM exercise-->
+<!--Log the first names from the follwing HTML doc on the console
+Log name of all the nodes inside the HTML body in lowercase on the console-->
+
+<html>
+    <body>
+        <ul>First Namaes
+            <li>John</li>
+            <li>Pete</li>
+            <li>Anne</li>
+            <li>Mary</li>
+        </ul>
+        <ul>Last Namaes
+            <li>Walker</li>
+            <li>Smith</li>
+            <li>Badan</li>
+            <li>Anne</li>
+        </ul>
+    </body>
+    <script>
+        let firstList=document.body.firstElemeChild.textContent
+        for(let text of firstList) {
+            console.log(firstList)
+        }
+
+        for (let node of document.body.childNodes) {
+            console.log(node.nodeName.toLowerCase())
+        }
+    </script>
+</html>
