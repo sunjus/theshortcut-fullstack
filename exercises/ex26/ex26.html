@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>My Todos</title>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <div>
+    <div class="pane">
+      <h3>Workout</h3>
+      <p>Join Network-out session with David</p>
+    </div>
+    <div class="pane">
+      <h3>Coding</h3>
+      <p>Complete target hours of FCC exercises</p>
+    </div>
+    <div class="pane">
+      <h3>Project</h3>
+      <p>Work on own project</p>
+      </p>
+    </div>
+  </div>
+
+
+  <script>
+      // Write your script here
+     let panes = document.querySelectorAll('.pane')
+     for (let pane of panes) {
+       pane.insertAdjacentHTML("afterbegin", " <button class='remove-button'>[x]</button>")
+       pane.firstChild.onclick = () => pane.remove()
+     } 
+
+    /*nive's
+       let btn = document.createElement("BUTTON")
+      btn.className = "remove-button"
+      btn.innerHTML = "X"
+      document.body.appendChild(btn)
+      document.querySelector(".remove-button").onclick = () => {
+      for(let pane of document.querySelectorAll(".pane")){
+        pane.hidden = true
+      }
+    }
+    */
+  </script>
+
+</body>
+</html>
