@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+    <h1>Mad Libs</h1>
+    <ul>
+        <li>Programming language: <input type="text" id="noun"> 
+        <li>Adjective: <input type="text" id="adjective">
+        <li>Someone's Name: <input type="text" id="person"> 
+    </ul>
+    <button id="lib-button">Lib it!</button>
+    <div id="story"></div>
+    <script>
+        makeMadLib=()=> {
+            let storyDiv = document.querySelector("#story")
+            let person = document.querySelector("#person").value
+            let adjective = document.querySelector("#adjective").value
+            let noun = document.querySelector("#noun").value
+
+            storyDiv.innerHTML = `${person} codes ${adjective} with ${noun} which is  cool!`
+
+        }
+        let libButton = document.querySelector("#lib-button")
+        libButton.addEventListener('click',makeMadLib)
+
+
+
+/*
+    makeMadLib=()=>{
+        let elements = document.body.querySelectorAll('input');
+        let obj = {}
+        for(elem of elements){        
+          obj[elem.id]=elem.value
+        }
+      let story = `${obj.person} thinks ${obj.noun} is ${obj.adjective}`
+      document.querySelector('#story').textContent=story
+      }
+      document.body.querySelector('#lib-button').addEventListener('click', makeMadLib)
+*/
+</script>
+    </body>
+</html>
