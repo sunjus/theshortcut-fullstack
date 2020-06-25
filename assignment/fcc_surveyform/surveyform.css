@@ -1,0 +1,69 @@
+body {
+  margin: 0;
+  padding: 3em;
+  font-family: "Pangolin", cursive;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+#survey-form {
+  max-width: 650px;
+  font-family: "Noto Sans", sans-serif;
+
+  background-color: rgb(233, 224, 245);
+  box-shadow: 2px 5px 10px rgb(162, 155, 231);
+  padding: 30px 30px;
+  margin: 2em auto;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.example {
+  margin-bottom: 20px;
+}
+
+.example label {
+  display: block;
+  margin-bottom: 1em;
+  margin-top: 0.5em;
+}
+
+.example input,
+.example select {
+  display: block;
+  width: 95%;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.example textarea {
+  width: 95%;
+  height: 3em;
+  padding: 10px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.example select {
+  height: 40px;
+  margin-top: 0.5em;
+}
+
+.example input[type="radio"],
+.example input[type="checkbox"] {
+  display: inline-block;
+  width: auto;
+  transform: scale(1.5);
+  margin-right: 0.3em;
+}
+.example input[type="submit"] {
+  width: 100%;
+}
