@@ -1,7 +1,6 @@
 :root {
   --text-color: #f0f4f5;
   --background-color: #263343;
-  --accent-color: pink;
 }
 
 body {
@@ -43,8 +42,10 @@ body {
 }
 
 .nav-link:hover {
-  background-color: yellow;
+  background-color: #ffe093;
   border-radius: 4px;
+  font-weight: bold;
+  text-color: black;
 }
 
 .subscribe {
@@ -57,6 +58,7 @@ body {
   display: block;
   margin: 0.9rem auto;
   width: 25%;
+  border-radius: 4px;
 }
 
 #submit {
@@ -64,8 +66,14 @@ body {
   border: none;
   font-size: 1rem;
   text-transform: uppercase;
-  font-weight: bold;
-  background-color: yellow;
+  font-weight: bolder;
+  background-color: #ffe093;
+  border-radius: 4px;
+}
+
+#submit:hover {
+  background-color: #f8cc5d;
+  border-radius: 4px;
 }
 
 .featured-wrapper {
@@ -137,9 +145,11 @@ body {
   display: block;
   width: 100px;
   margin: 1rem auto;
-  background-color: yellow;
+  border-radius: 4px;
+  background-color: #ffe093;
   text-align: center;
   text-decoration: none;
+  text-color: black;
 }
 
 #flexbox > div {
@@ -147,7 +157,6 @@ body {
   width: 40%;
   margin: 1em;
   padding-bottom: 1em;
-
   text-align: center;
   border: 1px solid black;
 }
@@ -157,6 +166,9 @@ body {
   background-color: #f1f1f1;
   padding: 1rem 0.5rem;
   text-align: end;
+  list-style: none;
+  text-decoration: none;
+  text-color: black;
 }
 
 #footer ul {
@@ -164,6 +176,8 @@ body {
   flex-direction: row;
   justify-content: flex-end;
   list-style: none;
+  text-decoration: none;
+  text-color: black;
 }
 
 .footer-copyright > p {
