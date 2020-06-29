@@ -1,0 +1,134 @@
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 25px;
+  background-color: lightyellow;
+}
+
+#navbar {
+  border: 2px solid black;
+  text-align: right;
+  padding-right: 2em;
+}
+.nav-list {
+  list-style-type: none;
+}
+
+.nav-list li a {
+  display: inline-flex;
+  text-decoration: none;
+  color: black;
+  font-size: 1.4em;
+  font-family: "Gloria Hallelujah", cursive;
+  font-weight: 500;
+  font-weight: bolder;
+}
+
+.nav-list li a:hover {
+  background-color: rgb(102, 102, 102);
+  color: white;
+  border-radius: 10px;
+}
+
+#welcome-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQUNoICPYZy_YNHRAcL3vMzF2vnLrYFcTEvKg&usqp=CAU");
+  background-repeat: no-repeat;
+  height: 500px;
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 3em;
+  margin-top: 3em;
+}
+
+#welcome-section h1 {
+  font-size: 50px;
+  font-family: "Special Elite", cursive;
+  color: pink;
+  text-shadow: 2px 2px lightcoral;
+}
+
+#welcome-section p {
+  font-size: 25px;
+  font-family: "Special Elite", cursive;
+  color: lightcoral;
+}
+
+#projects h2 {
+  font-size: 40px;
+  font-family: "Patua One", cursive;
+  text-align: center;
+}
+
+#projects {
+  text-align: center;
+}
+.project-image {
+  text-align: center;
+  height: auto;
+  width: 40%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 25px;
+}
+
+.project-title {
+  list-style-type: none;
+  text-decoration: none;
+  text-align: center;
+  padding: 10px 20px;
+}
+
+#projects a:link {
+  list-style: none;
+  text-decoration: none;
+  font-family: "Patua One", cursive;
+  color: black;
+  font-size: 1.5em;
+}
+
+#projects a:visited {
+  list-style: none;
+  text-decoration: none;
+  color: black;
+  font-family: "Patua One", cursive;
+}
+
+#projects a:hover {
+  list-style: none;
+  text-decoration: underline;
+  color: salmon;
+}
+
+#profile-link {
+  font-family: "Patua One", cursive;
+  text-align: center;
+}
+
+.profile-header > h2 {
+  font-size: 40px;
+}
+
+.profile-links a {
+  text-decoration: none;
+  color: lightcoral;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+footer {
+  border: 2px solid black;
+  text-align: right;
+  padding-right: 2em;
+  margin-top: 2em;
+}
+
+@media only screen and (max-width: 786px) {
+  body {
+    background-color: white;
+  }
+}
