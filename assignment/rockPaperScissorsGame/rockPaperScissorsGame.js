@@ -12,7 +12,7 @@ function score(a, b) {
     return 0;
   }
   let vs = a + b;
-  if (rpsWin.includes[vs]) {
+  if (rpsWin.includes(vs)) {
     return 1;
   }
   return -1;
@@ -26,7 +26,7 @@ function playRps(userChoice) {
 
 function handleClick(event) {
   const userInput = event.target.value;
-  [ret, userChoice, computerChoice] = playRps(userInput);
+  const [ret, userChoice, computerChoice] = playRps(userInput);
   let resultHTML = "<h1>Result</h1>";
   resultHTML += `<p>${rpsName[userChoice]} vs ${rpsName[computerChoice]}</p>`;
 
