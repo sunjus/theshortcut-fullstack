@@ -1,0 +1,14 @@
+.item{
+    width: 320px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: lightblue;
+    border: 1px solid #eee;
+}
+.person{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex:1;
+}
