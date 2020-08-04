@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30px;
+}
+h1 {
+  padding: 30 px;
+  margin: 30 px;
+  text-align: center;
+}
+.restaurant {
+  font-weight: bold;
+}
+
+.restaurants {
+  border: 2px solid black;
+  padding: 10px;
+  margin: 10px;
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  align-items: flex-start;
+}
+
+.restaurants img {
+  width: 250px;
+  height: 200px;
+  margin-top: 15px;
+}
