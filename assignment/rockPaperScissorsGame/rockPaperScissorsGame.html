@@ -3,17 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="rockPaperScissorsGame.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/916288f279.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Rock Paper Scissors Game</title>
   </head>
   <body>
     <!--choice-->
+    <header class="header">
+      <h1>Rock Paper Scissors Game</h1>
+    </header>
 
-    <button class="rps-select-btn" value="r">Rock</button>
-    <button class="rps-select-btn" value="p">Paper</button>
-    <button class="rps-select-btn" value="s">Scissors</button>
+    <div class="container">
+      <div class="buttons">
+        <button class="rps-select-btn" value="r">
+          <i class="far fa-hand-rock"></i>
+        </button>
+        <button class="rps-select-btn" value="p">
+          <i class="far fa-hand-paper"></i>
+        </button>
+        <button class="rps-select-btn" value="s">
+          <i class="far fa-hand-scissors"></i>
+        </button>
+      </div>
 
-    <!--result-->
-    <div id="rps-result"></div>
+      <!--result-->
+
+      <div class="score-board">
+        <div id="me" class="badge">ME</div>
+        <div id="you" class="badge">YOU</div>
+        <span id="me-score">0</span> : <span id="you-score">0</span>
+        <div id="rps-result"></div>
+      </div>
+    </div>
 
     <script src="rockPaperScissorsGame.js"></script>
   </body>
