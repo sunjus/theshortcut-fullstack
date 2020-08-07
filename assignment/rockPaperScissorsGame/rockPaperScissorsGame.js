@@ -25,7 +25,7 @@ function playRps(userChoice) {
 }
 
 function handleClick(event) {
-  const userInput = event.target.value;
+  const userInput = event.currentTarget.value;
   const [ret, userChoice, computerChoice] = playRps(userInput);
   let resultHTML = "<h1>Result</h1>";
   resultHTML += `<p>${rpsName[userChoice]} vs ${rpsName[computerChoice]}</p>`;
