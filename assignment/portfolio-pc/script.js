@@ -27,7 +27,7 @@ $(document).ready(function () {
     $(this).addClass("active");
   });
 
-  $(".ham-burger").click(function () {
+  $(".hamburger").click(function () {
     $(this).toggleClass("active");
     $(".navbar").toggleClass("open");
   });
