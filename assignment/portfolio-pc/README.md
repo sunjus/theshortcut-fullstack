@@ -1,1 +1,1 @@
-https://sunjus.github.io/theshortcut-fullstack/assignment/portfolio-pc/
+https://sunjus.github.io/theshortcut-fullstack/assignment//
