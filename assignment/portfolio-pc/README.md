@@ -1,1 +1,1 @@
-https://sunjus.github.io/theshortcut-fullstack/assignment/fcc_tributepage/
+https://sunjus.github.io/theshortcut-fullstack/assignment/portfolio-pc/
