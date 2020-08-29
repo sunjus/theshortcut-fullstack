@@ -32,6 +32,7 @@ module.exports = {
 
     try {
       const user = await User.findById(userId);
+      
       return res.json(user);
     } catch (error) {
       return res.status(400).json({
