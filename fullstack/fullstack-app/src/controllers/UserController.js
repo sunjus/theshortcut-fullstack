@@ -5,6 +5,17 @@ module.exports = {
     try {
       //console.log(req.body);
       const { email, firstName, lastName, password } = req.body;
-    } catch (err) {}
+
+      const user = await User.create({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      });
+
+      return res.json(user);
+    } catch (err) {
+      throw Error(`Error while registering new user: $(err)`);
+    }
   },
 };
