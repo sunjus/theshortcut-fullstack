@@ -10,7 +10,7 @@ const Header = () => {
 
 const styles = {
   header: {
-    backgroundColor: "#009de0",
+    backgroundColor: "#29ade5",
     color: "white",
     textAlign: "center",
     minWidth: "100px",

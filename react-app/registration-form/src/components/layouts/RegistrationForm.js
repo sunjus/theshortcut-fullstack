@@ -4,7 +4,7 @@ import { nameRex, emailRex, phoneRex, addressRex } from "../constants/regExp";
 
 export default class RegistrationForm extends Component {
   state = {
-    users: [],
+    // users: getData("userList") ? getData("userList") : [],
     user: {
       firstName: "",
       lastName: "",
@@ -49,7 +49,7 @@ export default class RegistrationForm extends Component {
       case "address":
         formErrors.address = address.match(addressRex)
           ? null
-          : "you must input 7 to 25 characrters!";
+          : "you must input 7 to 40 characrters!";
         break;
       default:
         break;
@@ -64,12 +64,12 @@ export default class RegistrationForm extends Component {
   };
 
   render() {
-    console.log(this.state.user);
+    //console.log(this.state.user);
     const { firstName, lastName, email, phone, address } = this.state.user;
     const { formErrors } = this.state;
     return (
       <div>
-        <form style={styles.form}>
+        <form onSubmit={this.handleSubmit} style={styles.form}>
           <InputField
             type="text"
             value={firstName}
@@ -133,9 +133,9 @@ const styles = {
   },
   submitBtn: {
     minWidth: "120px",
-    backgroundColor: "#333",
-    color: "#fff",
-    border: "1px solid black",
+    backgroundColor: "white",
+    color: "#29ade5",
+    border: "1px solid #29ade5",
     padding: "5px",
     margin: "10px",
   },

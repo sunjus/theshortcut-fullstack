@@ -1,0 +1,22 @@
+.container {
+  background-color: black;
+  color: white;
+  text-align: center;
+  width: 500px;
+  height: 500px;
+}
+
+.wrapper {
+  padding: 10px;
+  margin: 20px;
+  border: 2px solid whitesmoke;
+}
+
+.quote {
+  font-size: large;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.author {
+  font-family: italic;
+}
