@@ -6,14 +6,20 @@ module.exports = {
       //console.log(req.body);
       const { email, firstName, lastName, password } = req.body;
 
-      const user = await User.create({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-      });
+      const existentUser = await User.findOne({ email });
+      if (!existentUser) {
+        const user = await User.create({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+        });
 
-      return res.json(user);
+        return res.json(user);
+      }
+      return res.status(400).json({
+        message: "email/user already exists. Do you want to login instead?",
+      });
     } catch (err) {
       throw Error(`Error while registering new user: $(err)`);
     }
