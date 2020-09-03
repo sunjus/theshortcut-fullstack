@@ -1,18 +1,22 @@
+//import required libraries and packages
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 module.exports = {
-  async store(req, res) {
+  async createUser(req, res) {
     try {
       //console.log(req.body);
       const { email, firstName, lastName, password } = req.body;
 
       const existentUser = await User.findOne({ email });
       if (!existentUser) {
+        //has encrypt password before creating user
+        const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          password: password,
+          firstName,
+          lastName,
+          email,
+          passward: hashedPassword,
         });
 
         return res.json(user);
@@ -22,6 +26,19 @@ module.exports = {
       });
     } catch (err) {
       throw Error(`Error while registering new user: $(err)`);
+    }
+  },
+
+  async getUserById(req, res) {
+    const { userId } = req.params;
+
+    try {
+      const user = await User.findById(userId);
+      return res.json(user);
+    } catch (err) {
+      return res.status(400).json({
+        message: "User ID does not exist. Do you want to register?",
+      });
     }
   },
 };
