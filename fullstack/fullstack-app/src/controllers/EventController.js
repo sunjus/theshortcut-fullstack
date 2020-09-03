@@ -26,7 +26,6 @@ module.exports = {
       price: parseFloat(price),
       user: user_id,
       thumbnail: filename,
-      date,
     });
     return res.json(event);
   },

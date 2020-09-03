@@ -7,8 +7,8 @@ module.exports = {
     try {
       //console.log(req.body);
       const { email, firstName, lastName, password } = req.body;
-
       const existentUser = await User.findOne({ email });
+
       if (!existentUser) {
         //has encrypt password before creating user
         const hashedPassword = await bcrypt.hash(password, 10);
