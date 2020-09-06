@@ -10,22 +10,26 @@ module.exports = {
       const existentUser = await User.findOne({ email });
 
       if (!existentUser) {
-        //has encrypt password before creating user
+        // Has encrypt password before creating user
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({
           firstName,
           lastName,
           email,
-          passward: hashedPassword,
+          password: hashedPassword,
         });
-
-        return res.json(user);
+        return res.json({
+          _id: user._id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        });
       }
       return res.status(400).json({
         message: "email/user already exists. Do you want to login instead?",
       });
     } catch (err) {
-      throw Error(`Error while registering new user: $(err)`);
+      throw Error(`Error while registering new user: ${err}`);
     }
   },
 
@@ -35,7 +39,7 @@ module.exports = {
     try {
       const user = await User.findById(userId);
       return res.json(user);
-    } catch (err) {
+    } catch (error) {
       return res.status(400).json({
         message: "User ID does not exist. Do you want to register?",
       });
