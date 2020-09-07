@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 
+const verifyToken = require("./config/verifyToken");
 const UserController = require("./controllers/UserController");
 const EventController = require("./controllers/EventController");
 const DashboardController = require("./controllers/DashboardController");
@@ -22,11 +23,16 @@ routes.get("/status", (req, res) => {
   res.send({ status: 200 });
 });
 
-//Event
-//event creation and point
-routes.post("/event", upload.single("thumbnail"), EventController.createEvent);
-//deleting event by ID
-routes.delete("/event/:eventId", EventController.delete);
+// Event
+// Event creation end point
+routes.post(
+  "/event",
+  verifyToken,
+  upload.single("thumbnail"),
+  EventController.createEvent
+);
+// Deleting event by ID
+routes.delete("/event/:eventId", verifyToken, EventController.delete);
 
 //User
 //registering
@@ -36,11 +42,15 @@ routes.get("/user/:userId", UserController.getUserById);
 
 //Dashboard
 //getting events with ID using function called getEventById from EventController
-routes.get("/event/:eventId", DashboardController.getEventById);
+routes.get("/event/:eventId", verifyToken, DashboardController.getEventById);
 //getting all events
-routes.get("/dashboard", DashboardController.getAllEvents);
+routes.get("/dashboard", verifyToken, DashboardController.getAllEvents);
 //getting events by category
-routes.get("/dashboard/:category", DashboardController.getAllEvents);
+routes.get(
+  "/dashboard/:category",
+  verifyToken,
+  DashboardController.getAllEvents
+);
 
 //Login
 routes.post("/login", LoginController.store);
@@ -60,6 +70,15 @@ routes.post(
   "/registration/:registrationId/rejections",
   RejectionController.rejection
 );
+
+//sep.7
+//npx i jsonwebtoken
+//Todo: add JWT token to project(v)
+//return token when login(v)
+//send token on request(v)
+//create function to protect routes(v)
+//add function / middleware to routers(v)
+//modify response to decode the token
 
 //export routes
 module.exports = routes;

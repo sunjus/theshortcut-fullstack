@@ -37,7 +37,7 @@ const EventsPage = ({ history }) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const user_id = localStorage.getItem("user");
+    const user = localStorage.getItem("user");
     const eventData = new FormData();
 
     eventData.append("thumbnail", thumbnail);
@@ -57,7 +57,7 @@ const EventsPage = ({ history }) => {
         thumbnail !== null
       ) {
         console.log("Event has been sent");
-        await api.post("/event", eventData, { headers: { user_id } });
+        await api.post("/event", eventData, { headers: { user } });
         console.log(eventData);
         console.log("Event has been saved");
         setSuccess(true);
