@@ -14,7 +14,7 @@ module.exports = {
           //find particular event with that Id
           //if event with that Id exists, return the event data as response
           const event = await Event.findById(eventId);
-          return res.json(event);
+          return res.json({ authData, event });
         } catch (err) {
           //if event doesn't exist, response message will say it does not exist
           return res.status(400).json({
@@ -58,9 +58,9 @@ module.exports = {
         const { user_id } = req.headers;
 
         try {
-          const events = await Event.find({ user: user_id });
+          const events = await Event.find({ user: authData.user._id });
           if (events) {
-            return res.json(events);
+            return res.json({ authData, events });
           }
         } catch (error) {
           return res

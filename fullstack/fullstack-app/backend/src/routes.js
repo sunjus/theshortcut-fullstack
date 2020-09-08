@@ -37,6 +37,8 @@ routes.delete("/event/:eventId", verifyToken, EventController.delete);
 //User
 //registering
 routes.post("/user/register", UserController.createUser);
+// Getting events by user ID
+routes.get("/user/events", verifyToken, DashboardController.getEventsByUserId);
 //getting user by ID
 routes.get("/user/:userId", UserController.getUserById);
 
@@ -56,7 +58,11 @@ routes.get(
 routes.post("/login", LoginController.store);
 
 //Registration
-routes.post("/registration", RegistrationController.createRegistration);
+routes.post(
+  "/registration/:eventId",
+  verifyToken,
+  RegistrationController.createRegistration
+);
 routes.get(
   "/registration/:registrationId",
   RegistrationController.getRegistration
@@ -71,14 +77,14 @@ routes.post(
   RejectionController.rejection
 );
 
-//sep.7
+//Sep.7.20
 //npx i jsonwebtoken
 //Todo: add JWT token to project(v)
 //return token when login(v)
 //send token on request(v)
 //create function to protect routes(v)
 //add function / middleware to routers(v)
-//modify response to decode the token
+//modify response to decode the token(v)
 
 //export routes
 module.exports = routes;
