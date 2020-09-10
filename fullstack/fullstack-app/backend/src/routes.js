@@ -67,6 +67,11 @@ routes.get(
   "/registration/:registrationId",
   RegistrationController.getRegistration
 );
+routes.get(
+  "/registration",
+  verifyToken,
+  RegistrationController.getMyRegistrations
+);
 // Approvals and Rejections
 routes.post(
   "/registration/:registrationId/approvals",

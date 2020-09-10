@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import moment from "moment";
 import socketio from "socket.io-client";
 
 import api from "../../services/api";
 import "./dashboard.css";
-import { Alert, Button, ButtonGroup } from "reactstrap";
+import {
+  Alert,
+  Button,
+  ButtonGroup,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 
 const Dashboard = ({ history }) => {
   const user_id = localStorage.getItem("user_id");
@@ -14,18 +22,28 @@ const Dashboard = ({ history }) => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [messageHandler, setMessageHandler] = useState("");
+  const [eventsRequests, setEventsRequests] = useState([]);
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [eventRequestMessage, setEventRequestMessage] = useState("");
+  const [eventRequestSuccess, setEventRequestSuccess] = useState(false);
+
+  const toggle = () => setDropdownOpen(!dropdownOpen);
 
   useEffect(() => {
     getEvents();
   }, []);
 
+  const socket = useMemo(
+    () => socketio("http://localhost:8000", { query: { user: user_id } }),
+    [user_id]
+  );
   useEffect(() => {
-    const socket = socketio("http://localhost:8000", {
-      query: { user: user_id },
-    });
     // socket.on('sunju', response => console.log(response))
-    socket.on("registration_request", (response) => console.log(response));
-  }, []);
+    socket.on("registration_request", (response) =>
+      setEventsRequests([...eventsRequests, response])
+    );
+  }, [eventsRequests, socket]);
 
   const category = (query) => {
     getEvents(query);
@@ -53,6 +71,7 @@ const Dashboard = ({ history }) => {
       }, 2000);
     } catch (error) {
       setError(true);
+      setMessageHandler("Error deleting event!");
       setTimeout(() => {
         setError(false);
         setMessageHandler("");
@@ -71,12 +90,14 @@ const Dashboard = ({ history }) => {
       history.push("login");
     }
   };
+  /*
   //HandlerFunction:
   const logOutHandler = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("user_id");
     history.push("login");
   };
+  */
 
   const registrationRequestHandler = async (event) => {
     console.log("Clicked");
@@ -101,67 +122,145 @@ const Dashboard = ({ history }) => {
     }
   };
 
+  const acceptEventHandler = async (eventId) => {
+    try {
+      await api.post(
+        `/registration/${eventId}/approvals`,
+        {},
+        { headers: { user } }
+      );
+      setEventRequestSuccess(true);
+      setEventRequestMessage(`Request approved successfully`);
+      removeNotificationFromDashboard(eventId);
+      console.log("Registered");
+      setTimeout(() => {
+        setEventRequestSuccess(false);
+        setEventRequestMessage("");
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const rejectEventHandler = async (eventId) => {
+    try {
+      await api.post(
+        `/registration/${eventId}/rejections`,
+        {},
+        { headers: { user } }
+      );
+      setEventRequestSuccess(true);
+      setEventRequestMessage(`Request rejected successfully`);
+      removeNotificationFromDashboard(eventId);
+      //console.log("Registered");
+      setTimeout(() => {
+        setEventRequestSuccess(false);
+        setEventRequestMessage("");
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeNotificationFromDashboard = (eventId) => {
+    const newEvents = eventsRequests.filter((event) => event._id !== eventId);
+    setEventsRequests(newEvents);
+  };
+
   //Sep.8.20
   //Todo: add logout button nest to create event
   //onclick it should trigger logoutHandler function
   //logoutHandler function will kick users out of the session
   //push to login page
+
   return (
     <>
-      <div className="filter-panel">
-        <ButtonGroup>
-          <Button
-            color="primary"
-            onClick={() => category(null)}
-            active={category === null}
-          >
-            All
-          </Button>
-          <Button
-            color="primary"
-            onClick={() => category("running")}
-            active={category === "running"}
-          >
-            Running
-          </Button>
-          <Button
-            color="primary"
-            onClick={() => category("climbing")}
-            active={category === "climbing"}
-          >
-            Climbing
-          </Button>
-          <Button
-            color="primary"
-            onClick={() => category("exercise")}
-            active={category === "exercise"}
-          >
-            Exercise
-          </Button>
-          <Button
-            color="primary"
-            onClick={() => category("other")}
-            active={category === "other"}
-          >
-            Other
-          </Button>
-        </ButtonGroup>
+      {eventRequestSuccess ? (
+        <Alert color="success" className="event-validation">
+          {" "}
+          {eventRequestMessage}{" "}
+        </Alert>
+      ) : (
+        ""
+      )}
+      <ul className="notifications">
+        {eventsRequests.map((request) => {
+          console.log(request);
+          return (
+            <li key={request._id}>
+              <div>
+                <strong>{request.user.email}</strong> is requesting to register
+                to your event: <strong>{request.event.title}</strong>
+              </div>
+              <ButtonGroup>
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    acceptEventHandler(request._id);
+                  }}
+                >
+                  Accept
+                </Button>
+                <Button
+                  color="danger"
+                  onClick={() => {
+                    rejectEventHandler(request._id);
+                  }}
+                >
+                  Reject
+                </Button>
+              </ButtonGroup>
+            </li>
+          );
+        })}
+      </ul>
 
-        <ButtonGroup>
-          <Button className="secondary-btn" onClick={myEventsHandler}>
-            My Events
-          </Button>
-          <Button
-            className="secondary-btn"
-            onClick={() => history.push("/events")}
-          >
-            Create Event
-          </Button>
-          <Button className="secondary-btn" onClick={logOutHandler}>
-            LogOut
-          </Button>
-        </ButtonGroup>
+      <div className="filter-panel">
+        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+          <DropdownToggle caret>Filter</DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem
+              color="primary"
+              onClick={() => category(null)}
+              active={category === null}
+            >
+              All
+            </DropdownItem>
+            <DropdownItem className="secondary-btn" onClick={myEventsHandler}>
+              My Events
+            </DropdownItem>
+            <DropdownItem
+              color="primary"
+              onClick={() => category("running")}
+              active={category === "running"}
+            >
+              Running
+            </DropdownItem>
+            <DropdownItem
+              color="primary"
+              onClick={() => category("climbing")}
+              active={category === "climbing"}
+            >
+              Climbing
+            </DropdownItem>
+            <DropdownItem
+              color="primary"
+              onClick={() => category("exercise")}
+              active={category === "exercise"}
+            >
+              Exercise
+            </DropdownItem>
+            <DropdownItem
+              color="primary"
+              onClick={() => category("other")}
+              active={category === "other"}
+            >
+              Other
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </div>
+
       <ul className="events-list">
         {events.map((event) => (
           <li key={event._id}>

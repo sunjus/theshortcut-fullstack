@@ -11,7 +11,7 @@ html,
 body,
 #root {
   max-width: 100%;
-  background-color: #50585f;
+  background-color: #f7d6fa;
 }
 
 ::placeholder {
@@ -49,7 +49,7 @@ body,
   display: flex;
   flex-direction: column;
   width: 80%;
-  background-color: #7584a1;
+  background-color: #f6b8fc;
   margin-top: 5%;
   border-radius: 0.5em;
   padding: 5%;
@@ -74,19 +74,19 @@ body,
 }
 
 .content button.submit-btn {
-  background-color: #5568a3;
+  background-color: #ef69fc;
 }
 
 .content button.submit-btn:hover {
-  background-color: #34416b;
+  background-color: #b25eb9;
 }
 
 .content button.secondary-btn {
-  background-color: #af5b3a;
+  background-color: #350750;
 }
 
 .content button.secondary-btn:hover {
-  background-color: #754431;
+  background-color: #6c3699;
 }
 
 .container > .event-validation {

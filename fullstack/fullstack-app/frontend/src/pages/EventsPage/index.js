@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   Alert,
   Button,
@@ -31,13 +31,17 @@ const EventsPage = ({ history }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const user = localStorage.getItem("user");
+  useEffect(() => {
+    if (!user) history.push("login");
+  });
+
   const preview = useMemo(() => {
     return thumbnail ? URL.createObjectURL(thumbnail) : null;
   }, [thumbnail]);
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const user = localStorage.getItem("user");
     const eventData = new FormData();
 
     eventData.append("thumbnail", thumbnail);
