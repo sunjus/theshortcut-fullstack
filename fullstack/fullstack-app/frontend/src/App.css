@@ -11,7 +11,7 @@ html,
 body,
 #root {
   max-width: 100%;
-  background-color: #f7d6fa;
+  background-color: #009de0;
 }
 
 ::placeholder {
@@ -26,8 +26,8 @@ body,
 }
 
 .container h1 {
-  color: white;
-  font-size: 2.5rem;
+  color: rgb(7, 4, 4);
+  font-size: 3rem;
   font-weight: 700;
 }
 
@@ -41,28 +41,28 @@ body,
 }
 
 .container label {
-  color: white;
-  font-size: 1em;
+  color: rgb(255, 145, 163);
+  font-size: 1.2em;
 }
 
 .content {
   display: flex;
   flex-direction: column;
   width: 80%;
-  background-color: #f6b8fc;
+  background-color: whitesmoke;
   margin-top: 5%;
   border-radius: 0.5em;
   padding: 5%;
 }
 
 .content h2 {
-  color: white;
+  color: red;
   font-weight: 700;
 }
 
 .content > p {
-  font-size: 1rem;
-  color: white;
+  font-size: 2rem;
+  color: black;
 }
 
 .content button {
@@ -74,19 +74,19 @@ body,
 }
 
 .content button.submit-btn {
-  background-color: #ef69fc;
+  background-color: #009de0;
 }
 
 .content button.submit-btn:hover {
-  background-color: #b25eb9;
+  background-color: #42c4fc;
 }
 
 .content button.secondary-btn {
-  background-color: #350750;
+  background-color: #009de0;
 }
 
 .content button.secondary-btn:hover {
-  background-color: #6c3699;
+  background-color: #036c99;
 }
 
 .container > .event-validation {

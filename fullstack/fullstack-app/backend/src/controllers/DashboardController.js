@@ -1,4 +1,5 @@
 const Event = require("../models/Event");
+const Registration = require("../models/Registration");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
           //find particular event with that Id
           //if event with that Id exists, return the event data as response
           const event = await Event.findById(eventId);
+
           return res.json({ authData, event });
         } catch (err) {
           //if event doesn't exist, response message will say it does not exist
@@ -36,7 +38,7 @@ module.exports = {
         console.log("token: ", req.token);
 
         try {
-          const events = await Event.find(query);
+          const events = await Event.find(query).populate("user", "-password");
 
           if (events) {
             //return res.json(events)
@@ -58,7 +60,10 @@ module.exports = {
         const { user_id } = req.headers;
 
         try {
-          const events = await Event.find({ user: authData.user._id });
+          const events = await Event.find({ user: authData.user._id }).populate(
+            "user",
+            "-password"
+          );
           if (events) {
             return res.json({ authData, events });
           }

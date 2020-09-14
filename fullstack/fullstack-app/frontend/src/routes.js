@@ -18,6 +18,7 @@ export default (Routes) => {
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
         <Route path="/events" component={EventsPage} />
+        <Route path="/event/:eventId" component={EventsPage} />
       </Switch>
     </BrowserRouter>
   );

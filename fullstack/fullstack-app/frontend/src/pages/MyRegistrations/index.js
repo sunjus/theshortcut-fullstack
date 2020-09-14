@@ -65,7 +65,7 @@ export default function MyRegistrations() {
               {" "}
               Event Price: €{parseFloat(event.eventPrice).toFixed(2)}
             </span>
-            <span> User Email: {event.userEmil}</span>
+            <span> User Email: {event.userEmail}</span>
             <span>
               {" "}
               Status:

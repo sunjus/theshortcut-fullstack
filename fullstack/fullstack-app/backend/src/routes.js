@@ -33,6 +33,8 @@ routes.post(
 );
 // Deleting event by ID
 routes.delete("/event/:eventId", verifyToken, EventController.delete);
+//modify
+routes.put("/event/:eventId", verifyToken, EventController.modifyEvent);
 
 //User
 //registering
@@ -75,10 +77,12 @@ routes.get(
 // Approvals and Rejections
 routes.post(
   "/registration/:registrationId/approvals",
+  verifyToken,
   ApprovalController.approval
 );
 routes.post(
   "/registration/:registrationId/rejections",
+  verifyToken,
   RejectionController.rejection
 );
 

@@ -15,6 +15,7 @@ module.exports = {
           if (registration) {
             registration.approved = true;
             await registration.save();
+            Registration.updateEvent(registration.event);
           }
 
           return res.json(registration);

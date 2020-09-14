@@ -12,6 +12,9 @@ const EventSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    meta: {
+      nApproved: { type: Number, default: 0 },
+    },
   },
   {
     toJSON: {

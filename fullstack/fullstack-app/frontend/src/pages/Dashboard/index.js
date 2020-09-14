@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import moment from "moment";
 import socketio from "socket.io-client";
+import { Link } from "react-router-dom";
 
 import api from "../../services/api";
 import "./dashboard.css";
@@ -52,7 +53,7 @@ const Dashboard = ({ history }) => {
   const myEventsHandler = async () => {
     try {
       const response = await api.get("/user/events", { headers: { user } });
-      // console.log(response.data.events)
+      console.log(response.data.events);
       setEvents(response.data.events);
     } catch (error) {
       history.push("login");
@@ -231,24 +232,24 @@ const Dashboard = ({ history }) => {
             </DropdownItem>
             <DropdownItem
               color="primary"
-              onClick={() => category("running")}
-              active={category === "running"}
+              onClick={() => category("cooking")}
+              active={category === "cooking"}
             >
-              Running
+              Cooking
             </DropdownItem>
             <DropdownItem
               color="primary"
-              onClick={() => category("climbing")}
-              active={category === "climbing"}
+              onClick={() => category("studying")}
+              active={category === "studying"}
             >
-              Climbing
+              Studying
             </DropdownItem>
             <DropdownItem
               color="primary"
-              onClick={() => category("exercise")}
-              active={category === "exercise"}
+              onClick={() => category("travelling")}
+              active={category === "travelling"}
             >
-              Exercise
+              Travelling
             </DropdownItem>
             <DropdownItem
               color="primary"
@@ -283,6 +284,13 @@ const Dashboard = ({ history }) => {
             <span>Date: {moment(event.date).format("LL")}</span>
             <span>Price: {parseFloat(event.price).toFixed(2)}</span>
             <span>Description: {event.description}</span>
+            <span>
+              Creator:{" "}
+              <a href={`mailto:${event.user.email}`}>
+                {event.user.firstName} {event.user.lastName}
+              </a>
+            </span>
+            <span>Participant: {event.meta.nApproved}</span>
             <Button
               className="submit-btn"
               onClick={() => {
@@ -291,6 +299,8 @@ const Dashboard = ({ history }) => {
             >
               Register
             </Button>
+
+            <Link to={`/event/${event.id}`}>Edit</Link>
           </li>
         ))}
       </ul>

@@ -39,6 +39,38 @@ module.exports = {
     });
   },
 
+  modifyEvent(req, res) {
+    jwt.verify(req.token, "secret", async (err, authData) => {
+      if (err) {
+        res.statusCode(401);
+      } else {
+        const { eventId } = req.params;
+        const event = await Event.findById(eventId);
+
+        if (!event) {
+          return res.status(400).json({ message: "Event does not exist" });
+        }
+
+        //console.log(req.body);
+        const { title, description, price, category, date } = req.body;
+        // const { user_id } = req.headers
+        const { filename } = req.file;
+
+        event.title = title;
+        event.description = description;
+        event.category = category;
+        event.price = parseFloat(price);
+        if (filename) {
+          event.thumbnail = filename;
+        }
+        event.date = date;
+        await event.save(); // FIXME catch error
+
+        return res.json(event);
+      }
+    });
+  },
+
   delete(req, res) {
     jwt.verify(req.token, "secret", async (err) => {
       if (err) {

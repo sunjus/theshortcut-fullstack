@@ -18,7 +18,7 @@ import api from "../../services/api";
 // Add button to navigate to dashboard
 // Create successful event creation message
 
-const EventsPage = ({ history }) => {
+const EventsPage = ({ history, match }) => {
   // console.log(user_id)
 
   // Declare state variables
@@ -30,13 +30,47 @@ const EventsPage = ({ history }) => {
   const [date, setDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
+  const [event, setEvent] = useState({});
+
+  const eventId = match.params.eventId;
+  const editMode = eventId ? true : false;
 
   const user = localStorage.getItem("user");
+
   useEffect(() => {
-    if (!user) history.push("login");
+    console.log("##### user");
+    console.log(user);
+    //if (!user) history.push("/login");
   });
 
+  useEffect(() => {
+    if (editMode) getEvent(eventId);
+  }, [eventId]);
+
+  const getEvent = async (eventId) => {
+    try {
+      const response = await api.get(`/event/${eventId}`, {
+        headers: { user },
+      });
+
+      console.log(response.data);
+      setEvent(response.data.event);
+
+      const event = response.data.event;
+      console.log(event);
+
+      setTitle(event.title);
+      setDescription(event.description);
+      setCategory(event.category);
+      setPrice(event.price);
+      setDate(event.date.substring(0, 10));
+    } catch {
+      history.push("/login");
+    }
+  };
+
   const preview = useMemo(() => {
+    console.log(thumbnail);
     return thumbnail ? URL.createObjectURL(thumbnail) : null;
   }, [thumbnail]);
 
@@ -84,7 +118,7 @@ const EventsPage = ({ history }) => {
 
   return (
     <Container>
-      <h1>Create your Event</h1>
+      <h1>{editMode ? "Modify" : "Create"} your Event</h1>
       <Form onSubmit={submitHandler}>
         <FormGroup>
           <Label> Upload Image: </Label>
@@ -106,6 +140,7 @@ const EventsPage = ({ history }) => {
             id="title"
             type="text"
             placeholder={"Set Event Title"}
+            value={title}
             onChange={(event) => setTitle(event.target.value)}
           />
         </FormGroup>
@@ -120,9 +155,9 @@ const EventsPage = ({ history }) => {
             <option value="" disabled>
               Select Category
             </option>
-            <option value="running">Running</option>
-            <option value="climbing">Climbing</option>
-            <option value="exercise">Exercise</option>
+            <option value="cooking">Cooking</option>
+            <option value="studying">Studying</option>
+            <option value="travelling">Travelling</option>
             <option value="other">Other</option>
           </Input>
         </FormGroup>
@@ -132,6 +167,7 @@ const EventsPage = ({ history }) => {
             id="description"
             type="text"
             placeholder={"Set Event Description"}
+            value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
         </FormGroup>
@@ -141,6 +177,7 @@ const EventsPage = ({ history }) => {
             id="price"
             type="text"
             placeholder={"Set Event Price"}
+            value={price}
             onChange={(event) => setPrice(event.target.value)}
           />
         </FormGroup>
@@ -150,7 +187,12 @@ const EventsPage = ({ history }) => {
             id="date"
             type="date"
             placeholder={"Set Event Date"}
-            onChange={(event) => setDate(event.target.value)}
+            value={date}
+            onChange={(event) => {
+              console.log(event.target.value);
+              console.log(date);
+              setDate(event.target.value);
+            }}
           />
         </FormGroup>
         <FormGroup>

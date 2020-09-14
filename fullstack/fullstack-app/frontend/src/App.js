@@ -8,7 +8,7 @@ function App() {
   return (
     <ContextWrapper>
       <Container>
-        <h1>Best Fitness Events</h1>
+        <h1>Social Gathering Events</h1>
         <div className="content">
           <Routes />
         </div>
