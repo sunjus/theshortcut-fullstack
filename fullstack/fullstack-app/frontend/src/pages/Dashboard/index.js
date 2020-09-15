@@ -9,10 +9,21 @@ import {
   Alert,
   Button,
   ButtonGroup,
+  Card,
+  CardBody,
+  CardDeck,
+  CardGroup,
+  CardImg,
+  CardTitle,
+  CardSubtitle,
+  CardText,
+  CardLink,
+  Col,
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Row,
 } from "reactstrap";
 
 const Dashboard = ({ history }) => {
@@ -262,48 +273,42 @@ const Dashboard = ({ history }) => {
         </Dropdown>
       </div>
 
-      <ul className="events-list">
+      <Row className="events-list">
         {events.map((event) => (
-          <li key={event._id}>
-            <header style={{ backgroundImage: `url(${event.thumbnail_url})` }}>
-              {event.user === user_id ? (
-                <div>
-                  <Button
-                    color="danger"
-                    size="sm"
-                    onClick={() => deleteEventHandler(event._id)}
-                  >
-                    x
-                  </Button>
-                </div>
-              ) : (
-                ""
-              )}
-            </header>
-            <strong>{event.title}</strong>
-            <span>Date: {moment(event.date).format("LL")}</span>
-            <span>Price: {parseFloat(event.price).toFixed(2)}</span>
-            <span>Description: {event.description}</span>
-            <span>
-              Creator:{" "}
-              <a href={`mailto:${event.user.email}`}>
-                {event.user.firstName} {event.user.lastName}
-              </a>
-            </span>
-            <span>Participant: {event.meta.nApproved}</span>
-            <Button
-              className="submit-btn"
-              onClick={() => {
-                registrationRequestHandler(event);
-              }}
-            >
-              Register
-            </Button>
-
-            <Link to={`/event/${event.id}`}>Edit</Link>
-          </li>
+          <Col lg="6" key={event._id}>
+            <Card>
+              <CardImg
+                top
+                width="100%"
+                src={event.thumbnail_url}
+                alt="Card image cap"
+              />
+              <CardBody>
+                <CardTitle>{event.title}</CardTitle>{" "}
+                <CardLink to={`/event/${event.id}`}>edit </CardLink>
+                <CardText>Date: {moment(event.date).format("LL")}</CardText>
+                <CardText>Price: {parseFloat(event.price).toFixed(2)}</CardText>
+                <CardText>Description: {event.description}</CardText>
+                <CardText>
+                  Creator:{" "}
+                  <CardLink href={`mailto:${event.user.email}`}>
+                    {event.user.firstName} {event.user.lastName}
+                  </CardLink>
+                </CardText>
+                <CardText>Participant: {event.meta.nApproved}</CardText>
+                <Button
+                  style={{ width: "100%" }}
+                  onClick={() => {
+                    registrationRequestHandler(event);
+                  }}
+                >
+                  Register
+                </Button>
+              </CardBody>
+            </Card>
+          </Col>
         ))}
-      </ul>
+      </Row>
       {error ? (
         <Alert color="danger" className="event-validation">
           {messageHandler}

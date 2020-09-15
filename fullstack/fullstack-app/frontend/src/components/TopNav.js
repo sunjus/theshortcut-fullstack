@@ -2,9 +2,10 @@ import React, { useState, useContext } from "react";
 import {
   Collapse,
   Navbar,
+  NavbarBrand,
   NavbarToggler,
-  Nav,
   NavLink,
+  Nav,
   NavItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -25,10 +26,11 @@ const TopNav = () => {
 
   return isLoggedIn ? (
     <div>
-      <Navbar color="faded" light>
-        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+      <Navbar color="dark" dark expand="lg">
+        <NavbarBrand href="/">SG</NavbarBrand>
+        <NavbarToggler onClick={toggleNavbar}></NavbarToggler>
         <Collapse isOpen={!collapsed} navbar>
-          <Nav navbar>
+          <Nav className="mr-auto" navbar>
             <NavItem>
               <NavLink to="/events">Create Events</NavLink>
             </NavItem>
@@ -38,6 +40,8 @@ const TopNav = () => {
             <NavItem>
               <NavLink to="/">Dashboard</NavLink>
             </NavItem>
+          </Nav>
+          <Nav className="mr-auto" navbar>
             <NavItem>
               <NavLink to="/login" onClick={logoutHandler}>
                 Logout
