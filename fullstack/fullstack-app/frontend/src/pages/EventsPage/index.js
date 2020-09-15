@@ -19,6 +19,7 @@ import api from "../../services/api";
 // Create successful event creation message
 
 const EventsPage = ({ history, match }) => {
+  console.log("call EventPage");
   // console.log(user_id)
 
   // Declare state variables
@@ -38,40 +39,47 @@ const EventsPage = ({ history, match }) => {
   const user = localStorage.getItem("user");
 
   useEffect(() => {
-    console.log("##### user");
-    console.log(user);
-    //if (!user) history.push("/login");
+    if (!user) history.push("/login");
   });
 
   useEffect(() => {
-    if (editMode) getEvent(eventId);
+    getEvent(eventId);
   }, [eventId]);
 
   const getEvent = async (eventId) => {
-    try {
-      const response = await api.get(`/event/${eventId}`, {
-        headers: { user },
-      });
-
-      console.log(response.data);
-      setEvent(response.data.event);
-
-      const event = response.data.event;
-      console.log(event);
-
-      setTitle(event.title);
-      setDescription(event.description);
-      setCategory(event.category);
-      setPrice(event.price);
-      setDate(event.date.substring(0, 10));
-    } catch {
-      history.push("/login");
+    let event = {};
+    if (editMode) {
+      try {
+        const response = await api.get(`/event/${eventId}`, {
+          headers: { user },
+        });
+        console.log(response.data);
+        event = response.data.event;
+        if (response.data.authData.user._id !== event.user) {
+          history.goBack();
+        }
+        console.log(event);
+      } catch {
+        history.push("/login");
+      }
     }
+    console.log("refill");
+    setEvent(event);
+    setTitle(event.title || "");
+    setDescription(event.description || "");
+    setCategory(event.category || "");
+    setPrice(event.price || "");
+    setDate((event.date || "").substring(0, 10));
+    setThumbnail(event.thumbnail);
   };
 
   const preview = useMemo(() => {
     console.log(thumbnail);
-    return thumbnail ? URL.createObjectURL(thumbnail) : null;
+    if (editMode && typeof thumbnail === "string") {
+      return event.thumbnail_url;
+    } else {
+      return thumbnail ? URL.createObjectURL(thumbnail) : null;
+    }
   }, [thumbnail]);
 
   const submitHandler = async (event) => {
@@ -95,7 +103,12 @@ const EventsPage = ({ history, match }) => {
         thumbnail !== null
       ) {
         console.log("Event has been sent");
-        await api.post("/event", eventData, { headers: { user } });
+        console.log(eventData);
+        if (editMode) {
+          await api.post(`/event/${eventId}`, eventData, { headers: { user } });
+        } else {
+          await api.post("/event", eventData, { headers: { user } });
+        }
         console.log(eventData);
         console.log("Event has been saved");
         setSuccess(true);
@@ -115,7 +128,7 @@ const EventsPage = ({ history, match }) => {
       console.log(error);
     }
   };
-
+  console.log("render", title);
   return (
     <Container>
       <h1>{editMode ? "Modify" : "Create"} your Event</h1>
@@ -197,7 +210,7 @@ const EventsPage = ({ history, match }) => {
         </FormGroup>
         <FormGroup>
           <Button type="submit" className="submit-btn">
-            Create Event
+            {editMode ? "Update" : "Create"} Event
           </Button>
         </FormGroup>
         <FormGroup>
@@ -219,7 +232,7 @@ const EventsPage = ({ history, match }) => {
       )}
       {success ? (
         <Alert color="success" className="event-validation">
-          Event created successfully
+          Event {editMode ? "updated" : "created"} successfully
         </Alert>
       ) : (
         ""

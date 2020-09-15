@@ -5,6 +5,7 @@ ul.events-list {
   grid-template-columns: 1fr 1fr;
   grid-gap: 3em;
   margin-bottom: 1em;
+  box-shadow: rgb(165, 36, 36);
 }
 
 ul.events-list li {

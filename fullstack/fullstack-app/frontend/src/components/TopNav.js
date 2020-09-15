@@ -1,5 +1,12 @@
 import React, { useState, useContext } from "react";
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavLink,
+  NavItem,
+} from "reactstrap";
 import { Link } from "react-router-dom";
 import { UserContext } from "../user-context";
 
@@ -23,18 +30,18 @@ const TopNav = () => {
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <Link to="/events">Create Events</Link>
+              <NavLink to="/events">Create Events</NavLink>
             </NavItem>
             <NavItem>
-              <Link to="/myregistrations">Registration Requests</Link>
+              <NavLink to="/myregistrations">Registration Requests</NavLink>
             </NavItem>
             <NavItem>
-              <Link to="/">Dashboard</Link>
+              <NavLink to="/">Dashboard</NavLink>
             </NavItem>
             <NavItem>
-              <Link to="/login" onClick={logoutHandler}>
+              <NavLink to="/login" onClick={logoutHandler}>
                 Logout
-              </Link>
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>

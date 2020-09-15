@@ -34,7 +34,12 @@ routes.post(
 // Deleting event by ID
 routes.delete("/event/:eventId", verifyToken, EventController.delete);
 //modify
-routes.put("/event/:eventId", verifyToken, EventController.modifyEvent);
+routes.post(
+  "/event/:eventId",
+  verifyToken,
+  upload.single("thumbnail"),
+  EventController.modifyEvent
+); // FIXME put doesn't work. why?
 
 //User
 //registering

@@ -56,7 +56,7 @@ const Dashboard = ({ history }) => {
       console.log(response.data.events);
       setEvents(response.data.events);
     } catch (error) {
-      history.push("login");
+      history.push("/login");
     }
   };
 
@@ -88,7 +88,7 @@ const Dashboard = ({ history }) => {
       console.log(response.data);
       setEvents(response.data.events);
     } catch {
-      history.push("login");
+      history.push("/login");
     }
   };
   /*
