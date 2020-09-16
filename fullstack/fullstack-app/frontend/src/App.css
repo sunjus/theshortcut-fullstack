@@ -101,3 +101,7 @@ body,
 a.nav-link:hover {
   cursor: pointer;
 }
+
+.content > p:hover {
+  cursor: pointer;
+}

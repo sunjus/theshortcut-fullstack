@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import EventsPage from "./pages/EventsPage";
 import MyRegistrations from "./pages/MyRegistrations";
 import TopNav from "./components/TopNav";
+import ForgotPassword from "./pages/ForgotPassword";
 
 export default (Routes) => {
   return (
@@ -19,6 +20,7 @@ export default (Routes) => {
         <Route path="/login" exact component={Login} />
         <Route path="/events" component={EventsPage} />
         <Route path="/event/:eventId" component={EventsPage} />
+        <Route path="/forgotpassword" exact component={ForgotPassword} />
       </Switch>
     </BrowserRouter>
   );

@@ -10,6 +10,10 @@ const RegistrationController = require("./controllers/RegistrationController");
 const ApprovalController = require("./controllers/ApprovalController");
 const RejectionController = require("./controllers/RejectionController");
 const uploadConfig = require("./config/upload");
+const {
+  default: ForgotPassword,
+} = require("../../frontend/src/pages/forgotPassword");
+const ForgotController = require("./controllers/ForgotController");
 
 //Creating instances
 //define middleware which allows us to route from different file
@@ -63,6 +67,9 @@ routes.get(
 
 //Login
 routes.post("/login", LoginController.store);
+
+//ForgotPassword
+routes.post("/forgotpassword", ForgotController.store);
 
 //Registration
 routes.post(

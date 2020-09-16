@@ -1,30 +1,18 @@
-import React, { useState, useContext } from "react";
-import {
-  Alert,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Container,
-} from "reactstrap";
+import React, { useState } from "react";
+import { Alert, Button, Form, FormGroup, Input, Container } from "reactstrap";
 
 import api from "../../services/api";
-import { UserContext } from "../../user-context";
 
-const Login = ({ history }) => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+const ForgotPassword = ({ history }) => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("result of the submit", email, password);
+    console.log("result of the submit", email);
 
-    const response = await api.post("/login", { email, password });
-    //const userId = response.data._id || false;
+    const response = await api.post("/forgotpassword", { email });
     const user = response.data.user || false;
     const user_id = response.data.user_id || false;
 
@@ -32,7 +20,7 @@ const Login = ({ history }) => {
       if (user && user_id) {
         localStorage.setItem("user", user);
         localStorage.setItem("user_id", user_id);
-        setIsLoggedIn(true);
+
         history.push("/");
       } else {
         const { message } = response.data;
@@ -53,8 +41,8 @@ const Login = ({ history }) => {
 
   return (
     <Container>
-      <h2> Login </h2>
-      <p>Login to your account to the events</p>
+      <h2> Forgot Password </h2>
+      <p>Submit to your account to reset your password</p>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Input
@@ -66,32 +54,7 @@ const Login = ({ history }) => {
           />
         </FormGroup>
         <FormGroup>
-          <Input
-            type="password"
-            name="password"
-            id="examplePassword"
-            placeholder="Your Password"
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Button className="submit-btn">Login</Button>
-        </FormGroup>
-        <FormGroup>
-          <Button
-            className="secondary-btn"
-            onClick={() => history.push("/register")}
-          >
-            Register
-          </Button>
-          <FormGroup>
-            <p
-              className="forgot-password"
-              onClick={() => history.push("/forgotpassword")}
-            >
-              Forgot Password?
-            </p>
-          </FormGroup>
+          <Button className="submit-btn">Submit</Button>
         </FormGroup>
       </Form>
       {error ? (
@@ -105,4 +68,4 @@ const Login = ({ history }) => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
