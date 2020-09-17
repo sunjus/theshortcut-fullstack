@@ -32,20 +32,21 @@ const TopNav = () => {
         <Collapse isOpen={!collapsed} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink to="/events">Create Events</NavLink>
+              <NavLink href="/events">Create Events</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/myregistrations">Registration Requests</NavLink>
+              <NavLink href="/myregistrations">Registration Requests</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/">Dashboard</NavLink>
+              <NavLink href="/">Dashboard</NavLink>
             </NavItem>
           </Nav>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink to="/login" onClick={logoutHandler}>
-                Logout
+              <NavLink href="/login" onClick={logoutHandler}>
+                Log Out
               </NavLink>
+              <NavLink href="/login">Log In</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

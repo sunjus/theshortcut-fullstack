@@ -10,9 +10,6 @@ const RegistrationController = require("./controllers/RegistrationController");
 const ApprovalController = require("./controllers/ApprovalController");
 const RejectionController = require("./controllers/RejectionController");
 const uploadConfig = require("./config/upload");
-const {
-  default: ForgotPassword,
-} = require("../../frontend/src/pages/forgotPassword");
 const ForgotController = require("./controllers/ForgotController");
 
 //Creating instances
@@ -63,6 +60,12 @@ routes.get(
   "/dashboard/:category",
   verifyToken,
   DashboardController.getAllEvents
+);
+//getting eventdetail with ID
+routes.get(
+  "/eventdetail/:eventId",
+  verifyToken,
+  DashboardController.getEventById
 );
 
 //Login

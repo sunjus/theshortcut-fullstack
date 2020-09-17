@@ -279,13 +279,30 @@ const Dashboard = ({ history }) => {
             <Card>
               <CardImg
                 top
-                width="100%"
+                width="140px"
+                height="250px"
                 src={event.thumbnail_url}
                 alt="Card image cap"
               />
+
               <CardBody>
                 <CardTitle>{event.title}</CardTitle>{" "}
-                <CardLink to={`/event/${event.id}`}>edit </CardLink>
+                <CardLink href={`/event/${event.id}`}>edit </CardLink>
+                <div>
+                  {event.user === user_id ? (
+                    <div>
+                      <Button
+                        color="danger"
+                        size="sm"
+                        onClick={() => deleteEventHandler(event._id)}
+                      >
+                        x
+                      </Button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
                 <CardText>Date: {moment(event.date).format("LL")}</CardText>
                 <CardText>Price: {parseFloat(event.price).toFixed(2)}</CardText>
                 <CardText>Description: {event.description}</CardText>
