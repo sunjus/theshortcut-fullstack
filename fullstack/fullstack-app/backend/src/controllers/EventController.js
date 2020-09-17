@@ -50,7 +50,9 @@ module.exports = {
         if (!event) {
           return res.status(400).json({ message: "Event does not exist" });
         }
-        if (authData.user._id !== event.user) {
+        if (authData.user._id != event.user) {
+          console.log(typeof authData.user._id);
+          console.log(typeof event.user);
           return res.status(403).json({ message: "Not authorized user" });
         }
 
