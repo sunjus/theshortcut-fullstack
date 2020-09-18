@@ -1,14 +1,22 @@
-import React, { useState, useMemo, useEffect } from "react";
-//import { Alert, Button, Form, FormGroup, Label, Input, Container } from 'reactstrap'
+import React, { useState, useEffect } from "react";
+import {
+  Alert,
+  Button,
+  Card,
+  CardBody,
+  CardImg,
+  CardTitle,
+  CardText,
+  CardLink,
+} from "reactstrap";
 import moment from "moment";
-import "./eventDetail.css";
 import api from "../../services/api";
+import Comments from "../../components/Comments";
 
-const EventDetail = ({ history }) => {
-  // console.log(user_id)
-
+const EventDetail = ({ history, match }) => {
   // Declare state variables
-  const [events, setEvents] = useState([]);
+  const [event, setEvent] = useState({});
+  const [eventOwner, setEventOwner] = useState({});
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [messageHandler, setMessageHandler] = useState("");
@@ -16,31 +24,30 @@ const EventDetail = ({ history }) => {
 
   const user = localStorage.getItem("user");
 
+  const eventId = match.params.eventId;
+
   //로그인없이도볼수있음
   useEffect(() => {
-    getEvents();
-  }, []);
+    getEvent(eventId);
+  }, [eventId]);
 
-  const getEvents = async (params) => {
+  const getEvent = async (eventId) => {
+    let event = {};
+    let owner = {};
     try {
-      const url = params ? `/eventdetail/${params}` : "/dashboard";
-      const response = await api.get(url, { headers: { user } });
-
-      console.log(response.data);
-      setEvents(response.data.events);
+      let response = await api.get(`/event/${eventId}`, {
+        headers: { user },
+      });
+      event = response.data.event;
+      console.log(event);
+      console.log(typeof event.user);
+      response = await api.get(`/user/${event.user}`, { headers: { user } });
+      owner = response.data;
     } catch {
-      history.push("/login");
+      history.push("/"); // TODO better to show error page(404)
     }
-  };
-
-  const myEventsHandler = async () => {
-    try {
-      const response = await api.get("/user/events", { headers: { user } });
-      console.log(response.data.events);
-      setEvents(response.data.events);
-    } catch (error) {
-      history.push("/login");
-    }
+    setEvent(event);
+    setEventOwner(owner);
   };
 
   const registrationRequestHandler = async (event) => {
@@ -52,7 +59,6 @@ const EventDetail = ({ history }) => {
       console.log("Registered");
       setTimeout(() => {
         setSuccess(false);
-
         setMessageHandler("");
       }, 2000);
     } catch (error) {
@@ -67,32 +73,50 @@ const EventDetail = ({ history }) => {
   };
 
   return (
-    <ul className="events-list">
-      {events.map((event) => (
-        <li key={event._id}>
-          <header
-            style={{ backgroundImage: `url(${event.thumbnail_url})` }}
-          ></header>
-          <strong>{event.title}</strong>
-          <span>Date: {moment(event.date).format("LL")}</span>
-          <span>Price: {parseFloat(event.price).toFixed(2)}</span>
-          <span>Description: {event.description}</span>
-          <span>
-            Creator: <a href={`mailto:${event.user.email}`} />
-            {event.user.firstName} {event.user.lastName}
-          </span>
-          <span>Participant: {event.meta.nApproved}</span>
-          <button
+    <div>
+      <Card className="event-detail" key={event._id}>
+        <CardTitle tag="h3">{event.title}</CardTitle>
+
+        <CardImg src={event.thumbnail_url} />
+        <CardBody>
+          <CardText>Date: {moment(event.date).format("LL")}</CardText>
+          <CardText>Price: {parseFloat(event.price).toFixed(2)}</CardText>
+          <CardText>Description: {event.description}</CardText>
+          <CardText>
+            Creator:{" "}
+            <CardLink href={`mailto:${eventOwner.email}`}>
+              {eventOwner.firstName} {eventOwner.lastName}
+            </CardLink>
+          </CardText>
+          <CardText>Participant: {(event.meta || {}).nApproved || 0}</CardText>
+          <CardText></CardText>
+          <Button
             className="submit-btn"
             onClick={() => {
               registrationRequestHandler(event);
             }}
           >
             Register
-          </button>
-        </li>
-      ))}
-    </ul>
+          </Button>
+          <CardText></CardText>
+          <Comments history={history} eventId={event._id}></Comments>
+        </CardBody>
+      </Card>
+      {error ? (
+        <Alert color="danger" className="event-validation">
+          {messageHandler}
+        </Alert>
+      ) : (
+        ""
+      )}
+      {success ? (
+        <Alert color="success" className="event-validation">
+          {messageHandler}
+        </Alert>
+      ) : (
+        ""
+      )}
+    </div>
   );
 };
 

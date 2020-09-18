@@ -11,6 +11,7 @@ const ApprovalController = require("./controllers/ApprovalController");
 const RejectionController = require("./controllers/RejectionController");
 const uploadConfig = require("./config/upload");
 const ForgotController = require("./controllers/ForgotController");
+const CommentController = require("./controllers/CommentController");
 
 //Creating instances
 //define middleware which allows us to route from different file
@@ -61,12 +62,6 @@ routes.get(
   verifyToken,
   DashboardController.getAllEvents
 );
-//getting eventdetail with ID
-routes.get(
-  "/eventdetail/:eventId",
-  verifyToken,
-  DashboardController.getEventById
-);
 
 //Login
 routes.post("/login", LoginController.store);
@@ -100,6 +95,10 @@ routes.post(
   verifyToken,
   RejectionController.rejection
 );
+
+// Comments API
+routes.get("/comments/event/:eventId", CommentController.getCommentsByEventId);
+routes.post("/comment", verifyToken, CommentController.createComment);
 
 //Sep.7.20
 //npx i jsonwebtoken

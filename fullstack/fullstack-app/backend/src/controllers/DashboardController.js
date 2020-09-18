@@ -35,8 +35,6 @@ module.exports = {
         const { category } = req.params;
         const query = category ? { category } : {};
 
-        console.log("token: ", req.token);
-
         try {
           const events = await Event.find(query).populate("user", "-password");
 

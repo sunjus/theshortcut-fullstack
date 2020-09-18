@@ -1,13 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  Alert,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Container,
-} from "reactstrap";
+import { Alert, Button, Form, FormGroup, Input, Container } from "reactstrap";
 
 import api from "../../services/api";
 import { UserContext } from "../../user-context";

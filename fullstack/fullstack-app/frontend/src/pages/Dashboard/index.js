@@ -11,11 +11,8 @@ import {
   ButtonGroup,
   Card,
   CardBody,
-  CardDeck,
-  CardGroup,
   CardImg,
   CardTitle,
-  CardSubtitle,
   CardText,
   CardLink,
   Col,
@@ -46,15 +43,18 @@ const Dashboard = ({ history }) => {
     getEvents();
   }, []);
 
-  const socket = useMemo(
-    () => socketio("http://localhost:8000", { query: { user: user_id } }),
-    [user_id]
-  );
+  const socket = useMemo(() => {
+    if (user_id) {
+      return socketio("http://localhost:8000", { query: { user: user_id } });
+    }
+  }, [user_id]);
   useEffect(() => {
     // socket.on('sunju', response => console.log(response))
-    socket.on("registration_request", (response) =>
-      setEventsRequests([...eventsRequests, response])
-    );
+    if (user_id) {
+      socket.on("registration_request", (response) =>
+        setEventsRequests([...eventsRequests, response])
+      );
+    }
   }, [eventsRequests, socket]);
 
   const category = (query) => {
@@ -186,7 +186,7 @@ const Dashboard = ({ history }) => {
   //push to login page
 
   return (
-    <>
+    <div className="dashboard">
       {eventRequestSuccess ? (
         <Alert color="success" className="event-validation">
           {" "}
@@ -286,23 +286,21 @@ const Dashboard = ({ history }) => {
               />
 
               <CardBody>
-                <CardTitle>{event.title}</CardTitle>{" "}
-                <CardLink href={`/event/${event.id}`}>edit </CardLink>
-                <div>
+                <CardTitle tag="h3">
+                  <Link to={`/eventdetail/${event._id}`}>{event.title}</Link>
+                </CardTitle>{" "}
+                <CardLink href={`/event/${event.id}`}>
+                  <img src="https://img.icons8.com/nolan/25/edit--v1.png" />{" "}
+                </CardLink>
+                <CardLink>
                   {event.user === user_id ? (
-                    <div>
-                      <Button
-                        color="danger"
-                        size="sm"
-                        onClick={() => deleteEventHandler(event._id)}
-                      >
-                        x
-                      </Button>
+                    <div onClick={() => deleteEventHandler(event._id)}>
+                      <img src="https://img.icons8.com/nolan/25/delete-forever.png" />
                     </div>
                   ) : (
                     ""
                   )}
-                </div>
+                </CardLink>
                 <CardText>Date: {moment(event.date).format("LL")}</CardText>
                 <CardText>Price: {parseFloat(event.price).toFixed(2)}</CardText>
                 <CardText>Description: {event.description}</CardText>
@@ -340,7 +338,7 @@ const Dashboard = ({ history }) => {
       ) : (
         ""
       )}
-    </>
+    </div>
   );
 };
 

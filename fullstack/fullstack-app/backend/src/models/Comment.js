@@ -1,37 +1,16 @@
 const mongoose = require("mongoose");
 
-const CommentSchema = new mongoose.Schema(
-  {
-    title: String,
-    description: String,
-    category: String,
-    price: Number,
-    thumbnail: String,
-    date: Date,
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-    meta: {
-      nApproved: { type: Number, default: 0 },
-    },
-    responseId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-    content: {
-      type: String,
-    },
+const CommentSchema = new mongoose.Schema({
+  content: String,
+  date: Date,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
-  {
-    toJSON: {
-      virtuals: true,
-    },
-  }
-);
-
-CommentSchema.virtual("thumbnail_url").get(function () {
-  return `http://localhost:8000/files/${this.thumbnail}`;
+  event: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Event",
+  },
 });
 
 module.exports = mongoose.model("Comment", CommentSchema);
