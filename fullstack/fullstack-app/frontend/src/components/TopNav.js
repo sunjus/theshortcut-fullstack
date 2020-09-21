@@ -46,14 +46,34 @@ const TopNav = () => {
               <NavLink href="/login" onClick={logoutHandler}>
                 Log Out
               </NavLink>
-              <NavLink href="/login">Log In</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
     </div>
   ) : (
-    " "
+    <Navbar color="dark" dark expand="lg">
+      <NavbarBrand href="/">SG</NavbarBrand>
+      <NavbarToggler onClick={toggleNavbar}></NavbarToggler>
+      <Collapse isOpen={!collapsed} navbar>
+        <Nav className="mr-auto" navbar>
+          <NavItem>
+            <NavLink href="/events">Create Events</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/myregistrations">Registration Requests</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/">Dashboard</NavLink>
+          </NavItem>
+        </Nav>
+        <Nav className="mr-auto" navbar>
+          <NavItem>
+            <NavLink href="/login">Log In</NavLink>
+          </NavItem>
+        </Nav>
+      </Collapse>
+    </Navbar>
   );
 };
 
