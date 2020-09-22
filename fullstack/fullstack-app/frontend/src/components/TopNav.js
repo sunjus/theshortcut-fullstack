@@ -27,18 +27,20 @@ const TopNav = () => {
   return isLoggedIn ? (
     <div>
       <Navbar color="dark" dark expand="lg">
-        <NavbarBrand href="/">SG</NavbarBrand>
+        <NavbarBrand href="/">
+          <img src="https://img.icons8.com/nolan/32/share.png" />
+        </NavbarBrand>
         <NavbarToggler onClick={toggleNavbar}></NavbarToggler>
         <Collapse isOpen={!collapsed} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/events">Create Events</NavLink>
+              <NavLink href="/">HOME</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/myregistrations">Registration Requests</NavLink>
+              <NavLink href="/events">CREATE EVENTS</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/">Dashboard</NavLink>
+              <NavLink href="/myregistrations">REGISTRATION REQUESTS</NavLink>
             </NavItem>
           </Nav>
           <Nav className="mr-auto" navbar>
@@ -53,18 +55,20 @@ const TopNav = () => {
     </div>
   ) : (
     <Navbar color="dark" dark expand="lg">
-      <NavbarBrand href="/">SG</NavbarBrand>
+      <NavbarBrand href="/">
+        <img src="https://img.icons8.com/nolan/32/share.png" />
+      </NavbarBrand>
       <NavbarToggler onClick={toggleNavbar}></NavbarToggler>
       <Collapse isOpen={!collapsed} navbar>
         <Nav className="mr-auto" navbar>
           <NavItem>
-            <NavLink href="/events">Create Events</NavLink>
+            <NavLink href="/">HOME</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/myregistrations">Registration Requests</NavLink>
+            <NavLink href="/events">CREATE EVENTS</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/">Dashboard</NavLink>
+            <NavLink href="/myregistrations">REGISTRATION REQUESTS</NavLink>
           </NavItem>
         </Nav>
         <Nav className="mr-auto" navbar>
