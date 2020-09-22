@@ -45,7 +45,9 @@ const Dashboard = ({ history }) => {
 
   const socket = useMemo(() => {
     if (user_id) {
-      return socketio("http://localhost:8000", { query: { user: user_id } });
+      return socketio("http://18.156.127.250:8000", {
+        query: { user: user_id },
+      });
     }
   }, [user_id]);
   useEffect(() => {
