@@ -170,7 +170,7 @@ const EventsPage = ({ history, match }) => {
             </option>
             <option value="cooking">Cooking</option>
             <option value="studying">Studying</option>
-            <option value="travelling">Traveling</option>
+            <option value="traveling">Traveling</option>
             <option value="other">Other</option>
           </Input>
         </FormGroup>
