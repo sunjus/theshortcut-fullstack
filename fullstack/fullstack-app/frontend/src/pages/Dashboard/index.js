@@ -20,6 +20,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  UncontrolledDropdown,
   Row,
 } from "reactstrap";
 
@@ -37,7 +38,7 @@ const Dashboard = ({ history }) => {
   const [eventRequestMessage, setEventRequestMessage] = useState("");
   const [eventRequestSuccess, setEventRequestSuccess] = useState(false);
 
-  const toggle = () => setDropdownOpen(!dropdownOpen);
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   useEffect(() => {
     getEvents();
@@ -50,6 +51,7 @@ const Dashboard = ({ history }) => {
       });
     }
   }, [user_id]);
+
   useEffect(() => {
     // socket.on('sunju', response => console.log(response))
     if (user_id) {
@@ -101,9 +103,10 @@ const Dashboard = ({ history }) => {
       console.log(response.data);
       setEvents(response.data.events);
     } catch {
-      history.push("/login");
+      history.push("/dashboard");
     }
   };
+
   /*
   //HandlerFunction:
   const logOutHandler = () => {
@@ -233,6 +236,9 @@ const Dashboard = ({ history }) => {
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle caret>Filter</DropdownToggle>
           <DropdownMenu>
+            <DropdownItem className="secondary-btn" onClick={myEventsHandler}>
+              My Events
+            </DropdownItem>
             <DropdownItem
               color="primary"
               onClick={() => category(null)}
@@ -240,9 +246,7 @@ const Dashboard = ({ history }) => {
             >
               All
             </DropdownItem>
-            <DropdownItem className="secondary-btn" onClick={myEventsHandler}>
-              My Events
-            </DropdownItem>
+            <DropdownItem divider />
             <DropdownItem
               color="primary"
               onClick={() => category("cooking")}
@@ -259,10 +263,10 @@ const Dashboard = ({ history }) => {
             </DropdownItem>
             <DropdownItem
               color="primary"
-              onClick={() => category("travelling")}
-              active={category === "travelling"}
+              onClick={() => category("traveling")}
+              active={category === "traveling"}
             >
-              Travelling
+              Traveling
             </DropdownItem>
             <DropdownItem
               color="primary"
@@ -308,16 +312,33 @@ const Dashboard = ({ history }) => {
                 ) : (
                   ""
                 )}
-                <CardText>Date: {moment(event.date).format("LL")}</CardText>
-                <CardText>Price: {parseFloat(event.price).toFixed(2)}</CardText>
-                <CardText>Description: {event.description}</CardText>
                 <CardText>
-                  Creator:{" "}
+                  <img src="https://img.icons8.com/dotty/24/000000/calendar-30.png" />
+                  {"  "}
+                  {moment(event.date).format("LL")}
+                </CardText>
+                <CardText>
+                  <img src="https://img.icons8.com/ios/24/000000/price-tag-euro.png" />
+                  {"  "}
+                  {parseFloat(event.price).toFixed(2)}
+                </CardText>
+                <CardText>
+                  <img src="https://img.icons8.com/ios/24/000000/text-box.png" />
+                  {"  "}
+                  {event.description}
+                </CardText>
+                <CardText>
+                  <img src="https://img.icons8.com/dotty/24/000000/mail-contact.png" />
+                  {"  "}
                   <CardLink href={`mailto:${event.user.email}`}>
                     {event.user.firstName} {event.user.lastName}
                   </CardLink>
                 </CardText>
-                <CardText>Participant: {event.meta.nApproved}</CardText>
+                <CardText>
+                  <img src="https://img.icons8.com/ios/24/000000/conference-foreground-selected.png" />
+                  {"  "}
+                  {event.meta.nApproved}
+                </CardText>
                 <Button
                   style={{ width: "100%" }}
                   onClick={() => {
