@@ -104,7 +104,7 @@ const Dashboard = ({ history, eventFilter }) => {
       console.log(response.data);
       setEvents(response.data.events);
     } catch {
-      history.push("/dashboard");
+      history.push("/login");
     }
   };
 
@@ -237,7 +237,7 @@ const Dashboard = ({ history, eventFilter }) => {
               />
 
               <CardBody>
-                <CardTitle tag="h3" style={{ textAlign: "center" }}>
+                <CardTitle tag="h3">
                   <Link to={`/eventdetail/${event._id}`}>{event.title}</Link>
                 </CardTitle>{" "}
                 <CardLink

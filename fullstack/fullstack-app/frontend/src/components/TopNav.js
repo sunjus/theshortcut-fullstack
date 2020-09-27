@@ -75,6 +75,7 @@ const TopNav = ({ eventFilter }) => {
     </div>
   ) : (
     <div>
+      {" "}
       <img src="https://img.icons8.com/windows/16/000000/mobile-shop-secured-login.png" />
     </div>
   );

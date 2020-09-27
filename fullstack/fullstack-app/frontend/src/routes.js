@@ -25,9 +25,14 @@ export default (Routes) => {
     <BrowserRouter>
       <TopNav eventFilter={eventFilter} />
       <Switch>
-        <Route path="/" exact>
-          <Dashboard eventFilter={eventFilter}></Dashboard>
-        </Route>
+        <Route
+          path="/"
+          exact
+          render={(routeProps) => (
+            <Dashboard {...routeProps} eventFilter={eventFilter} />
+          )}
+        />
+
         <Route path="/myregistrations" exact component={MyRegistrations} />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
