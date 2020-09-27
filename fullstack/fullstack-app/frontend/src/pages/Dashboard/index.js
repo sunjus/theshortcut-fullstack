@@ -2,7 +2,6 @@ import React, { useEffect, useState, useMemo } from "react";
 import moment from "moment";
 import socketio from "socket.io-client";
 import { Link } from "react-router-dom";
-
 import api from "../../services/api";
 import "./dashboard.css";
 import {
@@ -16,15 +15,10 @@ import {
   CardText,
   CardLink,
   Col,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
   Row,
 } from "reactstrap";
 
-const Dashboard = ({ history }) => {
+const Dashboard = ({ history, eventFilter }) => {
   const user_id = localStorage.getItem("user_id");
   const user = localStorage.getItem("user");
 
@@ -41,8 +35,15 @@ const Dashboard = ({ history }) => {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   useEffect(() => {
-    getEvents();
-  }, []);
+    if (eventFilter.index === 0) {
+      getEvents();
+    }
+    if (eventFilter.index === 1) {
+      myEventsHandler();
+    } else {
+      getEvents(eventFilter.list[eventFilter.index].name);
+    }
+  }, [eventFilter.index]);
 
   const socket = useMemo(() => {
     if (user_id) {
@@ -106,15 +107,6 @@ const Dashboard = ({ history }) => {
       history.push("/dashboard");
     }
   };
-
-  /*
-  //HandlerFunction:
-  const logOutHandler = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("user_id");
-    history.push("login");
-  };
-  */
 
   const registrationRequestHandler = async (event) => {
     console.log("Clicked");
@@ -232,53 +224,6 @@ const Dashboard = ({ history }) => {
         })}
       </ul>
 
-      <div className="filter-panel">
-        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-          <DropdownToggle caret>Filter</DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem className="secondary-btn" onClick={myEventsHandler}>
-              My Events
-            </DropdownItem>
-            <DropdownItem
-              color="primary"
-              onClick={() => category(null)}
-              active={category === null}
-            >
-              All
-            </DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem
-              color="primary"
-              onClick={() => category("cooking")}
-              active={category === "cooking"}
-            >
-              Cooking
-            </DropdownItem>
-            <DropdownItem
-              color="primary"
-              onClick={() => category("studying")}
-              active={category === "studying"}
-            >
-              Studying
-            </DropdownItem>
-            <DropdownItem
-              color="primary"
-              onClick={() => category("traveling")}
-              active={category === "traveling"}
-            >
-              Traveling
-            </DropdownItem>
-            <DropdownItem
-              color="primary"
-              onClick={() => category("other")}
-              active={category === "other"}
-            >
-              Other
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-      </div>
-
       <Row className="events-list">
         {events.map((event) => (
           <Col lg="6" key={event._id}>
@@ -292,7 +237,7 @@ const Dashboard = ({ history }) => {
               />
 
               <CardBody>
-                <CardTitle tag="h3">
+                <CardTitle tag="h3" style={{ textAlign: "center" }}>
                   <Link to={`/eventdetail/${event._id}`}>{event.title}</Link>
                 </CardTitle>{" "}
                 <CardLink

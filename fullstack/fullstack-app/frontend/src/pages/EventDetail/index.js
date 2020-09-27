@@ -75,20 +75,35 @@ const EventDetail = ({ history, match }) => {
   return (
     <div>
       <Card className="event-detail" key={event._id}>
-        <CardTitle tag="h3">{event.title}</CardTitle>
+        <CardTitle tag="h3" style={{ textAlign: "center" }}>
+          {event.title}
+        </CardTitle>
 
         <CardImg src={event.thumbnail_url} />
         <CardBody>
-          <CardText>Date: {moment(event.date).format("LL")}</CardText>
-          <CardText>Price: {parseFloat(event.price).toFixed(2)}</CardText>
-          <CardText>Description: {event.description}</CardText>
           <CardText>
-            Creator:{" "}
+            <img src="https://img.icons8.com/dotty/24/000000/calendar-30.png" />
+            {"  "} {moment(event.date).format("LL")}
+          </CardText>
+          <CardText>
+            <img src="https://img.icons8.com/ios/24/000000/price-tag-euro.png" />
+            {"  "} {parseFloat(event.price).toFixed(2)}
+          </CardText>
+          <CardText>
+            <img src="https://img.icons8.com/ios/24/000000/text-box.png" />
+            {"  "} {event.description}
+          </CardText>
+          <CardText>
+            <img src="https://img.icons8.com/dotty/24/000000/mail-contact.png" />
+            {"  "}{" "}
             <CardLink href={`mailto:${eventOwner.email}`}>
               {eventOwner.firstName} {eventOwner.lastName}
             </CardLink>
           </CardText>
-          <CardText>Participant: {(event.meta || {}).nApproved || 0}</CardText>
+          <CardText>
+            <img src="https://img.icons8.com/ios/24/000000/conference-foreground-selected.png" />
+            {"  "} {(event.meta || {}).nApproved || 0}
+          </CardText>
           <CardText></CardText>
           <Button
             className="submit-btn"

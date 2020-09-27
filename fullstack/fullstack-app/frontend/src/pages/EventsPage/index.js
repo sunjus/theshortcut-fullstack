@@ -170,7 +170,7 @@ const EventsPage = ({ history, match }) => {
             </option>
             <option value="cooking">Cooking</option>
             <option value="studying">Studying</option>
-            <option value="travelling">Travelling</option>
+            <option value="travelling">Traveling</option>
             <option value="other">Other</option>
           </Input>
         </FormGroup>
@@ -219,7 +219,7 @@ const EventsPage = ({ history, match }) => {
             className="secondary-btn"
             onClick={() => history.push("/")}
           >
-            Dashboard
+            HOME
           </Button>
         </FormGroup>
       </Form>

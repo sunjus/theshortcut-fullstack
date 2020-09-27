@@ -1,34 +1,27 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   Collapse,
   Navbar,
-  NavbarBrand,
   NavbarToggler,
   NavLink,
   Nav,
   NavItem,
-  UncontrolledDropdown,
+  Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { Link } from "react-router-dom";
+
 import { UserContext } from "../user-context";
-import api from "../services/api";
 
-const TopNav = ({ history }) => {
-  //filter
-  const user_id = localStorage.getItem("user_id");
-  const user = localStorage.getItem("user");
-
-  const [events, setEvents] = useState([]);
-  const [error, setError] = useState(false);
-  //
+const TopNav = ({ eventFilter }) => {
   const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
 
   const [collapsed, setCollapsed] = useState(true);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   const logoutHandler = () => {
     localStorage.removeItem("user");
@@ -36,37 +29,6 @@ const TopNav = ({ history }) => {
     setIsLoggedIn(false);
   };
 
-  //filter
-  /*
-  useEffect(() => {
-    getEvents();
-  }, []);
-
-  const category = (query) => {
-    getEvents(query);
-  };
-
-  const myEventsHandler = async () => {
-    try {
-      const response = await api.get("/user/events", { headers: { user } });
-      console.log(response.data.events);
-      setEvents(response.data.events);
-    } catch (error) {
-      history.push("/login");
-    }
-  };
-  /*
-  const getEvents = async (params) => {
-    try {
-      const url = params ? `/dashboard/${params}` : "/dashboard";
-      const response = await api.get(url, { headers: { user } });
-      setEvents(response.data.events);
-    } catch {
-      history.push("/login");
-    }
-  };
-  */
-  //
   return isLoggedIn ? (
     <div>
       <Navbar color="dark" dark expand="lg">
@@ -82,6 +44,23 @@ const TopNav = ({ history }) => {
             <NavItem>
               <NavLink href="/myregistrations">REGISTRATION REQUESTS</NavLink>
             </NavItem>
+
+            <Dropdown nav inNavbar isOpen={dropdownOpen} toggle={toggle}>
+              <DropdownToggle nav caret>
+                FILTER
+              </DropdownToggle>
+              <DropdownMenu>
+                {eventFilter.list.map((item, index) => (
+                  <DropdownItem
+                    active={index === eventFilter.index}
+                    key={item.name}
+                    onClick={() => eventFilter.update(index)}
+                  >
+                    {item.display}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
           </Nav>
 
           <NavLink
