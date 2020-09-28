@@ -134,7 +134,7 @@ const EventsPage = ({ history, match }) => {
       <h1>{editMode ? "Modify" : "Create"} your Event</h1>
       <Form onSubmit={submitHandler}>
         <FormGroup>
-          <Label> Upload Image: </Label>
+          <Label> Must Upload Image:</Label>
           <Label
             id="thumbnail"
             style={{ backgroundImage: `url(${preview})` }}
@@ -210,7 +210,7 @@ const EventsPage = ({ history, match }) => {
         </FormGroup>
         <FormGroup>
           <Button type="submit" className="submit-btn">
-            {editMode ? "Update" : "Create"} Event
+            {editMode ? "UPDATE" : "CREATE"} EVENT
           </Button>
         </FormGroup>
         <FormGroup>
