@@ -4,18 +4,26 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   background-color: rgb(255, 238, 80);
 }
 
+.container {
+  text-align: center;
+  margin: 60px auto;
+  max-width: 650px;
+  padding: 20px;
+}
+
 header {
-  padding: 30px;
+  padding: 50px;
+  margin-top: 70px;
 }
 
 header > h1 {
   text-align: center;
-  font-size: 40px;
+  justify-content: center;
+  font-size: 41px;
   font-family: "Roboto", sans-serif;
 }
 
@@ -34,7 +42,7 @@ header > h1 {
 
 .rps-select-btn {
   display: inline-block;
-  border: 3px solid black;
+  /*border: 3px solid black;*/
   border-radius: 50%;
   padding: 30px;
   margin: 0 20px;
@@ -45,6 +53,4 @@ header > h1 {
 
 .rps-select-btn:hover {
   cursor: pointer;
-  font-size: 80px;
-  border: red;
 }
