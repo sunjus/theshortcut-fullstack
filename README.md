@@ -4,6 +4,5 @@ I have successfully completed The Shortcut's Full Stack Development Training Pro
 It was a super super exciting journey. ❤️ </br>
 I'm happy to see how much I grew as a competent developer since the first session of the training.</br>
 
-![Sunju Shin_Full Stack Development_Catalyst Certificate  (1).pdf](https://github.com/sunjus/theshortcut-fullstack/files/5779016/Sunju.Shin_Full.Stack.Development_Catalyst.Certificate.1.pdf)
-
+![certificate](https://user-images.githubusercontent.com/57226409/103841597-9df2fe00-509c-11eb-8106-36f005596e78.png)
 
