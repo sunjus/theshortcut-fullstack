@@ -1,1 +1,1 @@
-https://sunjus.github.io/theshortcut-fullstack/assignment/rockPaperScissorsGame/
+https://sunjus.github.io/theshortcut-fullstack/assignment/rockPaperScissorsGame
