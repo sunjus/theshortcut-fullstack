@@ -1,1 +1,1 @@
-https://sunjus.github.io/theshortcut-fullstack/assignment/fcc_documentationPage/
+https://sunjus.github.io/theshortcut-fullstack/assignment/fcc-documentationPage/
