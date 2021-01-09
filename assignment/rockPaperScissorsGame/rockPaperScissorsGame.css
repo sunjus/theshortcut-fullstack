@@ -49,6 +49,8 @@ header > h1 {
   font-size: 60px;
   background-color: white;
   transition: all 0.3s ease;
+  border: none;
+  outline: none;
 }
 
 .rps-select-btn:hover {
