@@ -3,6 +3,7 @@ import moment from "moment";
 import socketio from "socket.io-client";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
+import config from "../../config";
 import "./dashboard.css";
 import {
   Alert,
@@ -28,17 +29,15 @@ const Dashboard = ({ history, eventFilter }) => {
   const [messageHandler, setMessageHandler] = useState("");
   const [eventsRequests, setEventsRequests] = useState([]);
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  //const [dropdownOpen, setDropdownOpen] = useState(false);
   const [eventRequestMessage, setEventRequestMessage] = useState("");
   const [eventRequestSuccess, setEventRequestSuccess] = useState(false);
-
-  const toggle = () => setDropdownOpen((prevState) => !prevState);
+  //const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   useEffect(() => {
     if (eventFilter.index === 0) {
       getEvents();
-    }
-    if (eventFilter.index === 1) {
+    } else if (eventFilter.index === 1) {
       myEventsHandler();
     } else {
       getEvents(eventFilter.list[eventFilter.index].name);
@@ -47,7 +46,7 @@ const Dashboard = ({ history, eventFilter }) => {
 
   const socket = useMemo(() => {
     if (user_id) {
-      return socketio("http://18.156.127.250:8000", {
+      return socketio(config.backendURL, {
         query: { user: user_id },
       });
     }

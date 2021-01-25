@@ -68,16 +68,13 @@ const TopNav = ({ eventFilter }) => {
             onClick={logoutHandler}
             style={{ float: "right" }}
           >
-            <img src="https://img.icons8.com/windows/32/000000/mobile-shop-secured-login.png" />
+            <img src="https://img.icons8.com/fluent-systems-filled/38/000000/export.png" />
           </NavLink>
         </Collapse>
       </Navbar>
     </div>
   ) : (
-    <div>
-      {" "}
-      <img src="https://img.icons8.com/windows/16/000000/mobile-shop-secured-login.png" />
-    </div>
+    <div> </div>
   );
 };
 
