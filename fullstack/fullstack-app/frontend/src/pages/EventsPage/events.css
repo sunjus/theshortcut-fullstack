@@ -5,7 +5,7 @@ label#thumbnail {
   cursor: pointer;
   display: flex;
   align-items: center;
-  height: 25vh;
+  height: 30vh;
 }
 
 label#thumbnail input {

@@ -8,11 +8,13 @@ import {
   Input,
   Container,
 } from "reactstrap";
+import { Redirect } from "react-router";
 
 import thumbnailIcon from "../../assets/thumbnail.png";
 
 import "./events.css";
 import api from "../../services/api";
+import Axios from "axios";
 
 // TODO
 // Add button to navigate to dashboard
@@ -38,6 +40,10 @@ const EventsPage = ({ history, match }) => {
 
   const user = localStorage.getItem("user");
 
+  //alert fade
+  const [visible, setVisible] = useState(true);
+  const onDismiss = () => setVisible(false);
+
   useEffect(() => {
     if (!user) history.push("/login");
   });
@@ -55,7 +61,10 @@ const EventsPage = ({ history, match }) => {
         });
         console.log(response.data);
         event = response.data.event;
-        if (response.data.authData.user._id !== event.user) {
+        if (
+          response.data.authData.user._id !== event.user &&
+          response.data.authData.user.email !== "admin@test.com"
+        ) {
           history.goBack();
         }
         console.log(event);
@@ -104,17 +113,15 @@ const EventsPage = ({ history, match }) => {
       ) {
         console.log("Event has been sent");
         console.log(eventData);
-        if (editMode) {
-          await api.post(`/event/${eventId}`, eventData, { headers: { user } });
-        } else {
-          await api.post("/event", eventData, { headers: { user } });
+        const resp = await await api.post(
+          "/event/" + (editMode ? eventId : ""),
+          eventData,
+          { headers: { user } }
+        );
+        if (!editMode) {
+          setEvent(resp.data);
         }
-        console.log(eventData);
-        console.log("Event has been saved");
         setSuccess(true);
-        setTimeout(() => {
-          setSuccess(false);
-        }, 2000);
       } else {
         setErrorMessage(true);
         setTimeout(() => {
@@ -212,30 +219,27 @@ const EventsPage = ({ history, match }) => {
           <Button type="submit" className="submit-btn">
             {editMode ? "UPDATE" : "CREATE"} EVENT
           </Button>
-        </FormGroup>
-        <FormGroup>
+          {"  "}{" "}
           <Button
             type="submit"
             className="secondary-btn"
             onClick={() => history.push("/")}
           >
-            HOME
+            {"  "} HOME {"  "}
           </Button>
         </FormGroup>
       </Form>
       {errorMessage ? (
         <Alert color="danger" className="event-validation">
-          Missing input
+          <h4> Missing input</h4>
         </Alert>
       ) : (
         ""
       )}
-      {success ? (
-        <Alert color="success" className="event-validation">
-          Event {editMode ? "updated" : "created"} successfully
-        </Alert>
+      {success && event._id ? (
+        <Redirect to={`/eventdetail/${event._id}`} />
       ) : (
-        ""
+        " "
       )}
     </Container>
   );
